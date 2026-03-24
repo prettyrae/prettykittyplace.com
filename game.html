@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>feed tiple! · pretty kitty place</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --pink:      #f7a8c4;
+      --pink-light:#fce4ec;
+      --pink-deep: #e91e8c;
+      --dark-pink: #c2185b;
+      --cream:     #fff8f9;
+      --text:      #3d1c3a;
+      --text-soft: #7b4f7a;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: linear-gradient(160deg, #fce4ec 0%, #fff0f5 60%, #fce4ec 100%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* ── Nav ── */
+    header {
+      width: 100%;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1.5px solid var(--pink-light);
+      background: rgba(255,248,249,0.8);
+      backdrop-filter: blur(10px);
+    }
+
+    header a {
+      font-family: 'Fredoka One', cursive;
+      color: var(--pink-deep);
+      text-decoration: none;
+      font-size: 1rem;
+    }
+
+    header a:hover { color: var(--dark-pink); }
+
+    .logo-text {
+      font-family: 'Fredoka One', cursive;
+      font-size: 1.1rem;
+      color: var(--pink-deep);
+    }
+
+    /* ── Game Container ── */
+    main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 1rem;
+      gap: 1.5rem;
+      width: 100%;
+      max-width: 500px;
+    }
+
+    h1 {
+      font-family: 'Fredoka One', cursive;
+      font-size: 2.2rem;
+      color: var(--text);
+    }
+
+    /* ── Happiness Meter ── */
+    .meter-wrap {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .meter-label-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 800;
+      font-size: 0.9rem;
+      color: var(--text-soft);
+    }
+
+    #mood-label {
+      font-size: 1rem;
+      font-family: 'Fredoka One', cursive;
+      color: var(--pink-deep);
+    }
+
+    .meter-bar {
+      width: 100%;
+      height: 22px;
+      background: white;
+      border-radius: 99px;
+      border: 2px solid var(--pink);
+      overflow: hidden;
+      box-shadow: inset 0 2px 6px rgba(233,30,140,0.08);
+    }
+
+    .meter-fill {
+      height: 100%;
+      border-radius: 99px;
+      background: linear-gradient(90deg, var(--pink), var(--pink-deep));
+      transition: width 0.5s ease, background 0.5s ease;
+      width: 70%;
+    }
+
+    /* ── Tiple ── */
+    .tiple-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #tiple-svg {
+      width: 220px;
+      height: auto;
+      filter: drop-shadow(0 8px 20px rgba(233,30,140,0.15));
+      transition: transform 0.1s;
+    }
+
+    #tiple-svg.nom {
+      animation: nom 0.4s ease;
+    }
+
+    @keyframes nom {
+      0%   { transform: scale(1); }
+      25%  { transform: scale(1.08) rotate(-3deg); }
+      50%  { transform: scale(1.12) rotate(2deg); }
+      75%  { transform: scale(1.05) rotate(-1deg); }
+      100% { transform: scale(1); }
+    }
+
+    /* Sparkles */
+    .sparkle {
+      position: absolute;
+      font-size: 1.4rem;
+      pointer-events: none;
+      animation: sparkle-pop 0.8s ease forwards;
+      opacity: 0;
+    }
+
+    @keyframes sparkle-pop {
+      0%   { opacity: 0; transform: scale(0) translateY(0); }
+      40%  { opacity: 1; transform: scale(1.2) translateY(-10px); }
+      100% { opacity: 0; transform: scale(0.8) translateY(-30px); }
+    }
+
+    /* ── Status Message ── */
+    #status-msg {
+      font-family: 'Fredoka One', cursive;
+      font-size: 1.1rem;
+      color: var(--pink-deep);
+      min-height: 1.5rem;
+      text-align: center;
+      transition: opacity 0.3s;
+    }
+
+    /* ── Feed Button ── */
+    #feed-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: linear-gradient(135deg, var(--pink-deep), var(--dark-pink));
+      color: white;
+      font-family: 'Fredoka One', cursive;
+      font-size: 1.2rem;
+      border: none;
+      padding: 0.9rem 2.2rem;
+      border-radius: 99px;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(233,30,140,0.35);
+      transition: transform 0.15s, box-shadow 0.15s;
+      user-select: none;
+    }
+
+    #feed-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(233,30,140,0.45);
+    }
+
+    #feed-btn:active { transform: scale(0.96); }
+
+    #feed-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .fish-icon { display: flex; align-items: center; }
+
+    /* ── Flying Fish ── */
+    .flying-fish {
+      position: fixed;
+      pointer-events: none;
+      z-index: 999;
+      transform-origin: center;
+    }
+
+    /* ── Instructions ── */
+    .hint {
+      font-size: 0.85rem;
+      color: var(--text-soft);
+      font-weight: 600;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo-text">✦ pretty kitty place ✦</div>
+    <a href="index.html">← back home</a>
+  </header>
+
+  <main>
+    <h1>feed tiple!</h1>
+
+    <!-- Happiness Meter -->
+    <div class="meter-wrap">
+      <div class="meter-label-row">
+        <span>happiness</span>
+        <span id="mood-label">happy!</span>
+      </div>
+      <div class="meter-bar">
+        <div class="meter-fill" id="meter-fill"></div>
+      </div>
+    </div>
+
+    <!-- Tiple -->
+    <div class="tiple-wrap" id="tiple-wrap">
+      <svg id="tiple-svg" viewBox="0 0 220 310" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+        <!-- Tail -->
+        <path d="M 158,248 Q 210,230 200,278 Q 192,298 170,285 Q 185,275 182,260 Q 178,245 158,248 Z" fill="#aeaeae"/>
+        <path d="M 165,255 Q 195,248 190,270 Q 185,280 174,276" stroke="#999" stroke-width="1" fill="none"/>
+
+        <!-- Body -->
+        <ellipse cx="110" cy="248" rx="60" ry="55" fill="#c0c0c0"/>
+        <!-- Body shading -->
+        <ellipse cx="110" cy="255" rx="42" ry="38" fill="#b0b0b0" opacity="0.4"/>
+        <!-- Chest fluff -->
+        <ellipse cx="110" cy="228" rx="30" ry="22" fill="#d8d8d8"/>
+
+        <!-- Left ear outer -->
+        <polygon points="46,102 28,48 78,90" fill="#c0c0c0"/>
+        <!-- Left ear inner -->
+        <polygon points="50,97 38,60 72,87" fill="#f8bbd0"/>
+        <!-- Right ear outer -->
+        <polygon points="174,102 192,48 142,90" fill="#c0c0c0"/>
+        <!-- Right ear inner -->
+        <polygon points="170,97 182,60 148,87" fill="#f8bbd0"/>
+
+        <!-- Head -->
+        <ellipse cx="110" cy="150" rx="70" ry="67" fill="#c8c8c8"/>
+        <!-- Head highlight -->
+        <ellipse cx="95" cy="128" rx="28" ry="22" fill="#d8d8d8" opacity="0.5"/>
+
+        <!-- Left eye white -->
+        <ellipse cx="84" cy="142" rx="20" ry="21" fill="white"/>
+        <!-- Left iris -->
+        <circle cx="84" cy="144" r="15" fill="#66bb6a"/>
+        <!-- Left iris detail -->
+        <circle cx="84" cy="144" r="10" fill="#43a047"/>
+        <!-- Left pupil -->
+        <ellipse id="lp" cx="84" cy="144" rx="6" ry="11" fill="#1a1a1a"/>
+        <!-- Left highlight 1 -->
+        <circle cx="89" cy="138" r="4.5" fill="white"/>
+        <!-- Left highlight 2 -->
+        <circle cx="79" cy="150" r="2" fill="white" opacity="0.6"/>
+
+        <!-- Right eye white -->
+        <ellipse cx="136" cy="142" rx="20" ry="21" fill="white"/>
+        <!-- Right iris -->
+        <circle cx="136" cy="144" r="15" fill="#66bb6a"/>
+        <!-- Right iris detail -->
+        <circle cx="136" cy="144" r="10" fill="#43a047"/>
+        <!-- Right pupil -->
+        <ellipse id="rp" cx="136" cy="144" rx="6" ry="11" fill="#1a1a1a"/>
+        <!-- Right highlight 1 -->
+        <circle cx="141" cy="138" r="4.5" fill="white"/>
+        <!-- Right highlight 2 -->
+        <circle cx="131" cy="150" r="2" fill="white" opacity="0.6"/>
+
+        <!-- Nose -->
+        <polygon points="110,164 103,172 117,172" fill="#f48fb1"/>
+        <!-- Nose shine -->
+        <circle cx="107" cy="166" r="2" fill="white" opacity="0.6"/>
+
+        <!-- Mouth -->
+        <path id="mouth" d="M 103,174 Q 110,180 117,174" stroke="#999" stroke-width="2" fill="none" stroke-linecap="round"/>
+
+        <!-- Cheeks -->
+        <ellipse cx="68" cy="162" rx="20" ry="13" fill="#f8bbd0" opacity="0.45"/>
+        <ellipse cx="152" cy="162" rx="20" ry="13" fill="#f8bbd0" opacity="0.45"/>
+
+        <!-- Whiskers left -->
+        <line x1="16" y1="155" x2="82" y2="158" stroke="#aaa" stroke-width="1.2" stroke-linecap="round"/>
+        <line x1="14" y1="165" x2="82" y2="165" stroke="#aaa" stroke-width="1.2" stroke-linecap="round"/>
+        <line x1="18" y1="175" x2="82" y2="170" stroke="#aaa" stroke-width="1.2" stroke-linecap="round"/>
+        <!-- Whiskers right -->
+        <line x1="204" y1="155" x2="138" y2="158" stroke="#aaa" stroke-width="1.2" stroke-linecap="round"/>
+        <line x1="206" y1="165" x2="138" y2="165" stroke="#aaa" stroke-width="1.2" stroke-linecap="round"/>
+        <line x1="202" y1="175" x2="138" y2="170" stroke="#aaa" stroke-width="1.2" stroke-linecap="round"/>
+
+        <!-- Left paw -->
+        <ellipse cx="76" cy="292" rx="26" ry="14" fill="#b8b8b8"/>
+        <ellipse cx="63" cy="287" rx="9" ry="7" fill="#aaaaaa"/>
+        <ellipse cx="76" cy="285" rx="9" ry="7" fill="#aaaaaa"/>
+        <ellipse cx="89" cy="287" rx="9" ry="7" fill="#aaaaaa"/>
+        <!-- Left paw toe lines -->
+        <line x1="63" y1="282" x2="63" y2="290" stroke="#999" stroke-width="1" stroke-linecap="round"/>
+        <line x1="76" y1="280" x2="76" y2="289" stroke="#999" stroke-width="1" stroke-linecap="round"/>
+        <line x1="89" y1="282" x2="89" y2="290" stroke="#999" stroke-width="1" stroke-linecap="round"/>
+
+        <!-- Right paw -->
+        <ellipse cx="144" cy="292" rx="26" ry="14" fill="#b8b8b8"/>
+        <ellipse cx="131" cy="287" rx="9" ry="7" fill="#aaaaaa"/>
+        <ellipse cx="144" cy="285" rx="9" ry="7" fill="#aaaaaa"/>
+        <ellipse cx="157" cy="287" rx="9" ry="7" fill="#aaaaaa"/>
+        <line x1="131" y1="282" x2="131" y2="290" stroke="#999" stroke-width="1" stroke-linecap="round"/>
+        <line x1="144" y1="280" x2="144" y2="289" stroke="#999" stroke-width="1" stroke-linecap="round"/>
+        <line x1="157" y1="282" x2="157" y2="290" stroke="#999" stroke-width="1" stroke-linecap="round"/>
+
+        <!-- Tear (hidden by default) -->
+        <ellipse id="tear-l" cx="72" cy="175" rx="4" ry="6" fill="#aaddf7" opacity="0"/>
+        <ellipse id="tear-r" cx="148" cy="175" rx="4" ry="6" fill="#aaddf7" opacity="0"/>
+
+      </svg>
+    </div>
+
+    <!-- Status -->
+    <div id="status-msg">he's waiting for a fish...</div>
+
+    <!-- Feed Button -->
+    <button id="feed-btn" onclick="throwFish()">
+      <span class="fish-icon">
+        <svg width="32" height="20" viewBox="0 0 58 30" fill="none">
+          <path d="M8,6 L0,9 L0,21 L8,24 Q12,15 8,6 Z" fill="white" opacity="0.9"/>
+          <ellipse cx="32" cy="15" rx="23" ry="13" fill="white" opacity="0.9"/>
+          <path d="M22,6 Q28,2 38,5 Q32,10 22,6 Z" fill="white" opacity="0.7"/>
+          <circle cx="46" cy="12" r="4" fill="white" opacity="0.5"/>
+          <circle cx="47" cy="12" r="2.5" fill="#333" opacity="0.7"/>
+          <path d="M52,14 Q55,16 52,18" stroke="#333" stroke-width="1.2" fill="none" stroke-linecap="round" opacity="0.5"/>
+          <path d="M18,10 Q24,15 18,20" stroke="white" stroke-width="1.2" fill="none" opacity="0.4" stroke-linecap="round"/>
+          <path d="M26,8 Q32,15 26,22" stroke="white" stroke-width="1.2" fill="none" opacity="0.3" stroke-linecap="round"/>
+        </svg>
+      </span>
+      throw a fish!
+    </button>
+
+    <p class="hint">tiple gets hungrier over time — keep him fed!</p>
+  </main>
+
+  <script>
+    let happiness = 70;
+    let feeding = false;
+
+    const meterFill  = document.getElementById('meter-fill');
+    const moodLabel  = document.getElementById('mood-label');
+    const statusMsg  = document.getElementById('status-msg');
+    const tipleSvg   = document.getElementById('tiple-svg');
+    const tipleWrap  = document.getElementById('tiple-wrap');
+    const mouth      = document.getElementById('mouth');
+    const leftPupil  = document.getElementById('lp');
+    const rightPupil = document.getElementById('rp');
+    const tearL      = document.getElementById('tear-l');
+    const tearR      = document.getElementById('tear-r');
+
+    const moods = [
+      { min: 85, label: 'overjoyed!!',  mouth: 'M 96,172 Q 110,186 124,172', pupils: '5 8',  msg: '...he is SO happy right now 🎉', tears: 0 },
+      { min: 60, label: 'happy!',       mouth: 'M 100,174 Q 110,182 120,174', pupils: '6 11', msg: 'he loves you so much ✦',          tears: 0 },
+      { min: 40, label: 'content',      mouth: 'M 103,174 Q 110,178 117,174', pupils: '6 11', msg: 'he\'s okay for now...',            tears: 0 },
+      { min: 20, label: 'hungry...',    mouth: 'M 103,176 Q 110,172 117,176', pupils: '5 9',  msg: 'tiple is getting hungry!',         tears: 0 },
+      { min: 0,  label: 'STARVING!!',   mouth: 'M 100,178 Q 110,170 120,178', pupils: '4 7',  msg: 'feed him RIGHT NOW!! 😭',          tears: 1 },
+    ];
+
+    function updateUI() {
+      const pct = Math.max(0, Math.min(100, happiness));
+      meterFill.style.width = pct + '%';
+
+      // color shifts red when low
+      if (pct < 25) {
+        meterFill.style.background = 'linear-gradient(90deg, #ff8a80, #e53935)';
+      } else if (pct < 50) {
+        meterFill.style.background = 'linear-gradient(90deg, #ffab91, #e91e8c)';
+      } else {
+        meterFill.style.background = 'linear-gradient(90deg, #f7a8c4, #e91e8c)';
+      }
+
+      const mood = moods.find(m => pct >= m.min);
+      moodLabel.textContent  = mood.label;
+      mouth.setAttribute('d', mood.mouth);
+      statusMsg.textContent  = mood.msg;
+
+      const [rx, ry] = mood.pupils.split(' ');
+      leftPupil.setAttribute('rx', rx);
+      leftPupil.setAttribute('ry', ry);
+      rightPupil.setAttribute('rx', rx);
+      rightPupil.setAttribute('ry', ry);
+
+      tearL.setAttribute('opacity', mood.tears ? '0.85' : '0');
+      tearR.setAttribute('opacity', mood.tears ? '0.85' : '0');
+    }
+
+    function spawnSparkles() {
+      const emojis = ['✦', '✿', '✸', '♡'];
+      for (let i = 0; i < 5; i++) {
+        const s = document.createElement('div');
+        s.className = 'sparkle';
+        s.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        s.style.color = ['#e91e8c','#f7a8c4','#c2185b','#ff80ab'][Math.floor(Math.random()*4)];
+        const rect = tipleWrap.getBoundingClientRect();
+        s.style.left = (rect.left + Math.random() * rect.width) + 'px';
+        s.style.top  = (rect.top  + Math.random() * rect.height * 0.6) + 'px';
+        s.style.animationDelay = (Math.random() * 0.3) + 's';
+        document.body.appendChild(s);
+        setTimeout(() => s.remove(), 1000);
+      }
+    }
+
+    function makeFishSVG() {
+      return `<svg width="52" height="32" viewBox="0 0 58 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8,6 L0,9 L0,21 L8,24 Q12,15 8,6 Z" fill="#ff8f00"/>
+        <ellipse cx="32" cy="15" rx="23" ry="13" fill="#ffa726"/>
+        <path d="M22,6 Q28,2 38,5 Q32,10 22,6 Z" fill="#fb8c00"/>
+        <path d="M18,10 Q24,15 18,20" stroke="#ff6d00" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <path d="M26,8 Q32,15 26,22" stroke="#ff6d00" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <circle cx="46" cy="12" r="4.5" fill="white"/>
+        <circle cx="47" cy="12" r="2.5" fill="#1a1a1a"/>
+        <circle cx="46" cy="11" r="1" fill="white"/>
+        <path d="M52,13 Q55,15 52,17" stroke="#555" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+      </svg>`;
+    }
+
+    function throwFish() {
+      if (feeding) return;
+      feeding = true;
+      document.getElementById('feed-btn').disabled = true;
+
+      const btn      = document.getElementById('feed-btn');
+      const svgEl    = document.getElementById('tiple-svg');
+      const btnRect  = btn.getBoundingClientRect();
+      const svgRect  = svgEl.getBoundingClientRect();
+
+      // aim for Tiple's mouth (~53% down, center)
+      const targetX = svgRect.left + svgRect.width * 0.5 - 26;
+      const targetY = svgRect.top  + svgRect.height * 0.54;
+      const startX  = btnRect.left + 10;
+      const startY  = btnRect.top  + btnRect.height / 2 - 16;
+
+      const fish = document.createElement('div');
+      fish.className = 'flying-fish';
+      fish.innerHTML = makeFishSVG();
+      fish.style.left = startX + 'px';
+      fish.style.top  = startY + 'px';
+      document.body.appendChild(fish);
+
+      fish.animate([
+        { left: startX + 'px', top: startY + 'px', opacity: 1, transform: 'scale(1) rotate(0deg)' },
+        { left: (startX + (targetX - startX) * 0.5) + 'px', top: (Math.min(startY, targetY) - 40) + 'px', opacity: 1, transform: 'scale(0.9) rotate(-10deg)' },
+        { left: targetX + 'px', top: targetY + 'px', opacity: 0, transform: 'scale(0.3) rotate(0deg)' }
+      ], { duration: 550, easing: 'ease-in', fill: 'forwards' }).onfinish = () => {
+        fish.remove();
+
+        // nom!
+        tipleSvg.classList.add('nom');
+        setTimeout(() => tipleSvg.classList.remove('nom'), 400);
+
+        happiness = Math.min(100, happiness + 18);
+        updateUI();
+
+        if (happiness >= 85) spawnSparkles();
+
+        feeding = false;
+        document.getElementById('feed-btn').disabled = false;
+      };
+    }
+
+    // drain over time
+    setInterval(() => {
+      happiness = Math.max(0, happiness - 1);
+      updateUI();
+    }, 4000);
+
+    // init
+    updateUI();
+  </script>
+
+</body>
+</html>
