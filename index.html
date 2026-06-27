@@ -3,136 +3,515 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pretty Kitty Place · Stickers & More</title>
+  <title>Pretty Kitty Place · Handmade & Pokémon Shows</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+  <style>
+    :root {
+      --pink:        #f7a8c4;
+      --pink-light:  #fce4ec;
+      --pink-deep:   #e91e8c;
+      --purple:      #f48fb1;
+      --purple-deep: #c2185b;
+      --cream:       #fff8f9;
+      --text:        #3d1c3a;
+      --text-soft:   #7b4f7a;
+      --white:       #ffffff;
+      --radius:      18px;
+      --radius-sm:   10px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background-color: var(--cream);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+
+    /* NAV */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,248,249,0.88);
+      backdrop-filter: blur(10px);
+      border-bottom: 1.5px solid var(--pink-light);
+    }
+
+    nav {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo-text {
+      font-family: 'Fredoka One', cursive;
+      font-size: 1.15rem;
+      color: var(--pink-deep);
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    nav ul a {
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--text-soft);
+      transition: color 0.2s;
+    }
+
+    nav ul a:hover { color: var(--pink-deep); }
+
+    /* HERO */
+    .hero {
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 4rem 1.5rem;
+      background: linear-gradient(160deg, #fce4ec 0%, #f3e5f5 50%, #fce4ec 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-content { position: relative; z-index: 2; }
+
+    .hero-eyebrow {
+      display: inline-block;
+      background: var(--pink-light);
+      color: var(--pink-deep);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 0.35rem 1.1rem;
+      border-radius: 99px;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero h1 {
+      font-family: 'Fredoka One', cursive;
+      font-size: clamp(2.6rem, 8vw, 4.8rem);
+      color: var(--text);
+      line-height: 1.1;
+      margin-bottom: 0.6rem;
+    }
+
+    .hero h1 span { color: var(--pink-deep); }
+
+    .hero-sub {
+      font-size: clamp(1rem, 2.5vw, 1.15rem);
+      color: var(--text-soft);
+      font-weight: 600;
+      margin-bottom: 2.25rem;
+    }
+
+    .btn-main {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--pink-deep), var(--purple-deep));
+      color: white;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      font-size: 1rem;
+      padding: 0.9rem 2.2rem;
+      border-radius: 99px;
+      box-shadow: 0 4px 20px rgba(233,30,140,0.35);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .btn-main:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(233,30,140,0.45);
+    }
+
+    .floating-stars { position: absolute; inset: 0; pointer-events: none; }
+    .star {
+      position: absolute;
+      color: var(--pink);
+      animation: float 4s ease-in-out infinite;
+      font-size: 1.5rem;
+      opacity: 0.55;
+    }
+    .s1 { top: 12%; left: 8%;      animation-delay: 0s;    font-size: 2rem; }
+    .s2 { top: 20%; right: 10%;    animation-delay: 0.6s;  font-size: 1.2rem; color: var(--purple); }
+    .s3 { bottom: 25%; left: 6%;   animation-delay: 1.2s;  font-size: 1rem; }
+    .s4 { top: 50%; right: 5%;     animation-delay: 0.3s;  font-size: 2.2rem; color: var(--purple); }
+    .s5 { bottom: 15%; right: 12%; animation-delay: 0.9s;  font-size: 1.5rem; }
+    .s6 { top: 40%; left: 3%;      animation-delay: 1.5s;  font-size: 1rem; color: var(--purple); }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50%       { transform: translateY(-12px) rotate(10deg); }
+    }
+
+    /* SECTIONS */
+    section { padding: 5rem 1.5rem; }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .section-tag {
+      display: inline-block;
+      background: var(--pink-light);
+      color: var(--pink-deep);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.35rem 1rem;
+      border-radius: 99px;
+      margin-bottom: 0.75rem;
+    }
+
+    h2 {
+      font-family: 'Fredoka One', cursive;
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      color: var(--text);
+      margin-bottom: 1rem;
+    }
+
+    /* ABOUT */
+    .about { background: var(--white); }
+
+    .about p {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: var(--text-soft);
+      max-width: 620px;
+      margin: 0 auto 1rem;
+    }
+
+    /* WHAT I MAKE */
+    .makes { background: var(--cream); }
+
+    .makes-grid {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+
+    .make-card {
+      background: white;
+      border-radius: var(--radius);
+      padding: 2rem 1.75rem;
+      width: 240px;
+      box-shadow: 0 4px 20px rgba(206,147,216,0.15);
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.6rem;
+      border: 2px solid transparent;
+    }
+
+    .make-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px rgba(233,30,140,0.15);
+      border-color: var(--pink);
+    }
+
+    .make-card-icon { font-size: 2.8rem; }
+
+    .make-card h3 {
+      font-family: 'Fredoka One', cursive;
+      font-size: 1.2rem;
+      color: var(--text);
+    }
+
+    .make-card p {
+      font-size: 0.9rem;
+      color: var(--text-soft);
+      text-align: center;
+      line-height: 1.55;
+    }
+
+    /* SHOWS */
+    .shows {
+      background: linear-gradient(160deg, #fce4ec 0%, #f3e5f5 60%, #fce4ec 100%);
+    }
+
+    .shows-intro {
+      color: var(--text-soft);
+      font-size: 1rem;
+      margin-bottom: 2.5rem;
+      font-weight: 600;
+    }
+
+    .shows-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .show-card {
+      background: white;
+      border-radius: var(--radius);
+      padding: 1.25rem 1.75rem;
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      box-shadow: 0 4px 16px rgba(233,30,140,0.08);
+      text-align: left;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .show-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(233,30,140,0.15);
+    }
+
+    .show-date-badge {
+      background: linear-gradient(135deg, var(--pink-deep), var(--purple-deep));
+      color: white;
+      border-radius: var(--radius-sm);
+      padding: 0.6rem 0.9rem;
+      text-align: center;
+      min-width: 62px;
+      flex-shrink: 0;
+    }
+
+    .show-date-badge .month {
+      font-size: 0.65rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      opacity: 0.88;
+    }
+
+    .show-date-badge .day {
+      font-family: 'Fredoka One', cursive;
+      font-size: 1.6rem;
+      line-height: 1;
+    }
+
+    .show-info h3 {
+      font-weight: 800;
+      font-size: 1rem;
+      color: var(--text);
+      margin-bottom: 0.2rem;
+    }
+
+    .show-info p {
+      font-size: 0.88rem;
+      color: var(--text-soft);
+      font-weight: 600;
+    }
+
+    .show-tag {
+      margin-left: auto;
+      flex-shrink: 0;
+      background: var(--pink-light);
+      color: var(--pink-deep);
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.28rem 0.75rem;
+      border-radius: 99px;
+    }
+
+    .no-shows {
+      background: white;
+      border-radius: var(--radius);
+      padding: 2.5rem;
+      color: var(--text-soft);
+      font-size: 1rem;
+      font-weight: 700;
+      max-width: 480px;
+      margin: 0 auto;
+      box-shadow: 0 4px 16px rgba(233,30,140,0.08);
+    }
+
+    .no-shows span { display: block; font-size: 2rem; margin-bottom: 0.5rem; }
+
+    /* CONNECT */
+    .connect { background: var(--white); }
+
+    .socials-handle {
+      display: inline-block;
+      margin-top: 1.5rem;
+      background: linear-gradient(135deg, var(--pink-deep), var(--purple-deep));
+      color: white;
+      font-family: 'Fredoka One', cursive;
+      font-size: 1.3rem;
+      padding: 0.85rem 2.2rem;
+      border-radius: 99px;
+      letter-spacing: 0.02em;
+      box-shadow: 0 4px 20px rgba(233,30,140,0.25);
+    }
+
+    .socials-sub {
+      margin-top: 0.9rem;
+      font-size: 0.88rem;
+      color: var(--text-soft);
+      font-weight: 700;
+    }
+
+    /* FOOTER */
+    footer {
+      background: linear-gradient(135deg, var(--pink-deep), var(--purple-deep));
+      color: white;
+      text-align: center;
+      padding: 2rem 1.5rem;
+      font-size: 0.88rem;
+      font-weight: 700;
+    }
+
+    footer span { opacity: 0.75; font-weight: 400; }
+
+    /* RESPONSIVE */
+    @media (max-width: 600px) {
+      nav ul { gap: 1rem; }
+      .make-card { width: 100%; max-width: 320px; }
+      .show-card { flex-wrap: wrap; }
+      .show-tag { margin-left: 0; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .star { animation: none; }
+      .btn-main, .make-card, .show-card { transition: none; }
+    }
+  </style>
 </head>
 <body>
 
-  <!-- ✦ HEADER / NAV ✦ -->
+  <!-- NAV -->
   <header>
     <nav>
       <div class="logo-text">✦ pretty kitty place ✦</div>
       <ul>
         <li><a href="#about">about</a></li>
-        <li><a href="#shop">shop</a></li>
-        <li><a href="#cats">the cats</a></li>
+        <li><a href="#makes">shop</a></li>
+        <li><a href="#shows">shows</a></li>
         <li><a href="#connect">find me</a></li>
-        <li><a href="game.html">feed tiple ✦</a></li>
       </ul>
     </nav>
   </header>
 
-  <!-- ✦ HERO ✦ -->
-  <section class="hero">
-    <div class="hero-content">
-      <div class="hero-badge">✦</div>
-      <h1>pretty kitty place</h1>
-      <p class="tagline">handmade stickers · made with love</p>
-      <a href="https://depop.app.link/kiXlRDaVy1b" class="btn-main" target="_blank" rel="noopener">shop on depop ✦</a>
-    </div>
-    <div class="floating-stars">
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="floating-stars" aria-hidden="true">
       <span class="star s1">✦</span>
       <span class="star s2">✿</span>
-      <span class="star s3">✦</span>
-      <span class="star s4">✸</span>
+      <span class="star s3">✸</span>
+      <span class="star s4">✦</span>
       <span class="star s5">✿</span>
-      <span class="star s6">✦</span>
+      <span class="star s6">✸</span>
+    </div>
+    <div class="hero-content">
+      <span class="hero-eyebrow">handmade with love ✦ pokémon card shows</span>
+      <h1>pretty kitty <span>place</span></h1>
+      <p class="hero-sub">keychains · magnets · pokémon cards · good vibes</p>
+      <a href="#shows" class="btn-main">see upcoming shows ✦</a>
     </div>
   </section>
 
-  <!-- ✦ ABOUT ✦ -->
+  <!-- ABOUT -->
   <section class="about" id="about">
     <div class="container">
-      <div class="section-tag">✦ about me ✦</div>
+      <span class="section-tag">✦ about me ✦</span>
       <h2>hi, i'm rae!</h2>
-      <p>
-        welcome to pretty kitty place, a little corner of the internet for everything cute,
-        kawaii, and sticker-shaped. i design all of my own original characters and bring them
-        to life as high-quality stickers, perfect for your laptop, water bottle, planner, or
-        anywhere else that needs a little more cute.
-      </p>
-      <p>
-        every sticker is made with love and shipped with care. come hang out on my socials
-        to see new drops, behind-the-scenes, and way too many cat pics.
-      </p>
-
-      <div class="tiple-box">
-        <div class="tiple-text">
-          <h3>meet tiple!</h3>
-          <p>
-            tiple is the star of pretty kitty place. he's a gray cat and my very own original character,
-            inspired by my two real cats maple and tinker bell. i took the best parts of both of them,
-            combined them together, and tiple was born!
-          </p>
-        </div>
-      </div>
+      <p>welcome to pretty kitty place — my little corner of the vendor world! i make handmade keychains and magnets featuring original characters and designs, and i vend at pokémon card shows where i also bring cards to trade and sell.</p>
+      <p>every piece i make is designed by me and made with love. come find my table at a show near you — i'd love to meet you! 🩷</p>
     </div>
   </section>
 
-  <!-- ✦ SHOP ✦ -->
-  <section class="shop" id="shop">
+  <!-- WHAT I MAKE -->
+  <section class="makes" id="makes">
     <div class="container">
-      <div class="section-tag">✦ shop ✦</div>
-      <h2>get your stickers</h2>
-      <div class="shop-cards">
-        <a href="https://depop.app.link/kiXlRDaVy1b" class="shop-card" target="_blank" rel="noopener">
-          <div class="shop-card-icon">🛍️</div>
-          <h3>depop shop</h3>
-          <p>browse all available stickers, bundles, and new drops</p>
-          <span class="shop-link">visit shop →</span>
-        </a>
-        <div class="shop-card coming-soon">
-          <div class="shop-card-icon">✨</div>
-          <h3>more coming soon</h3>
-          <p>follow my socials for updates on new sticker drops!</p>
-          <span class="shop-link">stay tuned →</span>
+      <span class="section-tag">✦ what i make ✦</span>
+      <h2>find at my table</h2>
+      <div class="makes-grid">
+        <div class="make-card">
+          <div class="make-card-icon">🔑</div>
+          <h3>keychains</h3>
+          <p>handmade original designs — cute, kawaii, and one-of-a-kind. perfect for bags, backpacks, and beyond.</p>
+        </div>
+        <div class="make-card">
+          <div class="make-card-icon">🧲</div>
+          <h3>magnets</h3>
+          <p>original character magnets that are almost too cute to put on a fridge. almost.</p>
+        </div>
+        <div class="make-card">
+          <div class="make-card-icon">🃏</div>
+          <h3>pokémon cards</h3>
+          <p>singles, sets, and fun pulls. stop by my table to browse, trade, or add to your collection.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ✦ THE CATS ✦ -->
-  <section class="meet-cats" id="cats">
+  <!-- SHOWS -->
+  <section class="shows" id="shows">
     <div class="container">
-      <div class="section-tag">✦ the cats ✦</div>
-      <h2>meet the inspiration</h2>
-      <p class="cats-intro">the real cats behind tiple! maple and tinker bell are the reason pretty kitty place exists.</p>
-      <div class="cats-grid">
-        <div class="cat-card text-only">
-          <h3>maple</h3>
-          <p>sassy, food driven, and will absolutely start a fight — but give her five minutes and she'll be curled up on you like nothing happened.</p>
+      <span class="section-tag">✦ upcoming shows ✦</span>
+      <h2>come find me!</h2>
+      <p class="shows-intro">here's where i'll be vending — hope to see you there! 🩷</p>
+
+      <div class="shows-list">
+
+        <!-- ✏️ TO ADD A SHOW: copy one show-card block and update the month, day, name, location/time, and tag -->
+        <!-- ✏️ TO REMOVE ALL SHOWS: delete the show-card blocks and uncomment the no-shows block below -->
+
+        <div class="show-card">
+          <div class="show-date-badge">
+            <div class="month">Jul</div>
+            <div class="day">11</div>
+          </div>
+          <div class="show-info">
+            <h3>Stuart Card Show</h3>
+            <p>📍 Stuart, FL · 10am – 5pm</p>
+          </div>
+          <span class="show-tag">pokémon</span>
         </div>
-        <div class="cat-card text-only">
-          <h3>tinker bell</h3>
-          <p>the sweetest little angel you've ever met. timid, gentle, a total fruitcake — and completely obsessed with maple.</p>
+
+        <!--
+        <div class="no-shows">
+          <span>🌸</span>
+          no shows scheduled right now — follow my socials for announcements!
         </div>
+        -->
+
       </div>
     </div>
   </section>
 
-  <!-- ✦ CONNECT / SOCIALS ✦ -->
+  <!-- CONNECT -->
   <section class="connect" id="connect">
     <div class="container">
-      <div class="section-tag">✦ find me ✦</div>
+      <span class="section-tag">✦ find me ✦</span>
       <h2>let's be friends!</h2>
-      <p>follow along for new drops, sneak peeks, and all things cute</p>
-      <div class="social-links">
-        <a href="https://depop.app.link/kiXlRDaVy1b" class="social-card depop" target="_blank" rel="noopener">
-          <div class="social-icon">🛍️</div>
-          <span>depop</span>
-          <small>pretty kitty place</small>
-        </a>
-      </div>
+      <p style="color:var(--text-soft);font-weight:600;">follow along for show announcements, new drops, and too many cat pics 🐱</p>
+      <div class="socials-handle">✦ prettykittyplace ✦</div>
+      <p class="socials-sub">find me on all your favorite socials!</p>
     </div>
   </section>
 
-  <!-- ✦ FOOTER ✦ -->
+  <!-- FOOTER -->
   <footer>
-    <p>✦ pretty kitty place ✦ made with lots of love</p>
-    <p class="footer-small">© 2026 pretty kitty place · all designs original and owned by rae</p>
+    ✦ pretty kitty place ✦ made with lots of love
+    <br><span>© 2026 pretty kitty place · all designs original and owned by rae</span>
   </footer>
 
 </body>
